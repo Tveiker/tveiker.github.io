@@ -100,9 +100,7 @@ category: blog
   
 #####关系Android系统源码研究、编译的一些基础问题
    - 模拟器启动需要的镜像来源。linux内核来自pprebuilts/qemu-kernel/arm/kernel-qemu.
-   
    - 模拟器启动需要的android镜像在ANDROID_PRODUCT_OUT目录下的system.img、userdata.img、ramdisk.img。
-  
    - 编译前需要设置编译环境，选择目标
    
      ```shell
