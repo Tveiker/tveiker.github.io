@@ -7,8 +7,7 @@ category: blog
   本文针对的是Android4.4的源码。编译host主机系统是Ubuntu14.04LTS。环境初始化、代码下载请参照google [android编译环境初始化](http://source.android.com/source/initializing.html)，[Android源码下载](http://source.android.com/source/downloading.html)，[Android源码编译](http://source.android.com/source/building-running.html),[Android linux内核编译](http://source.android.com/source/building-kernels.html)。这些都可以从官方找到。当然也可以找一些百度云上面的资源。这里主要记录一下我遇到的一些问题以及怎么处理。
 
 #####Android 4.4需要使用SunJDK 1.6版本。由于开发需要，系统极有可能安装了其他版本的JDK.处理方法如下
-
-- 安装SunJDK。Ubuntu14.04LTS好像已经把SunJDK屏蔽了。所以需要在Oracle下载对应版本JDK，下载下来后文件jdk-6u45-linux-x64.bin。把它拷贝到/usr/lib/jvm。
+安装SunJDK。Ubuntu14.04LTS好像已经把SunJDK屏蔽了。所以需要在Oracle下载对应版本JDK，下载下来后文件jdk-6u45-linux-x64.bin。把它拷贝到/usr/lib/jvm。
    
    ```shell
    sudo cp jdk-6u45-linux-x64.bin /usr/lib/jvm/
@@ -35,13 +34,13 @@ category: blog
    
    然后根据提示切换到自己需要的版本。这样可以处理很多莫名奇妙的错误
    
-#####当提示缺少命令则按照提示去安装即可。比如我的系统提示flex命令找不到，那么安装就可以。命令缺少很容易解决
+#####当提示缺少命令则按照提示去安装即可。比如我的系统提示flex命令找不到，那么安装就可以。命令缺少很容易解决  
 
    ```shell
    sudo apt-get install flex
    ```
    
-#####缺少库就需要找到安装这个库的方法，一般通过通过apt-file来寻找依赖，然后决定安装。比如我的系统提示缺少 libz.so.1。
+#####缺少库就需要找到安装这个库的方法，一般通过通过apt-file来寻找依赖，然后决定安装。比如我的系统提示缺少 libz.so.1。  
 
    ```shell
    sudo apt-file search libz.so.1
@@ -64,7 +63,7 @@ category: blog
    sudo apt-get install zlib1g
    ```
    
-#####启动模拟器时提示libGL.so找不到，此时需要寻找本地libGL库，或是按照3寻找安装。不过系统一般都有这个库
+#####启动模拟器时提示libGL.so找不到，此时需要寻找本地libGL库，或是按照3寻找安装。不过系统一般都有这个库  
 
    ```shell
    locate libGL
