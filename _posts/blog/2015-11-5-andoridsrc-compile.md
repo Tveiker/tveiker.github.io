@@ -1,3 +1,9 @@
+---
+layout: post
+title: Android源码编译
+description: 本文针对的是Android4.4的源码编译,host主机系统是Ubuntu14.04LTS
+category: blog
+---
 ##Android源码编译
   本文针对的是Android4.4的源码。编译host主机系统是Ubuntu14.04LTS。环境初始化、代码下载请参照google [android编译环境初始化](http://source.android.com/source/initializing.html)，[Android源码下载](http://source.android.com/source/downloading.html)，[Android源码编译](http://source.android.com/source/building-running.html),[Android linux内核编译](http://source.android.com/source/building-kernels.html)。这些都可以从官方找到。当然也可以找一些百度云上面的资源。这里主要记录一下我遇到的一些问题以及怎么处理。
 
