@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Android源码编译
+title: AndroidRuntime启动
 description: 从pm命令执行细说AndroidRuntime启动
 category: blog
 ---
