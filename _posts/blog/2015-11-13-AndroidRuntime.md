@@ -6,7 +6,8 @@ category: blog
 ---
 #####从pm命令执行细说AndroidRuntime启动
 我们在PC端执行`adb shell pm package list`时，其实通过adb通信最终执行的是`system/bin`目录下的`pm`脚本。pm脚本内容如下
-```
+
+```shell
 # Script to start "pm" on the device, which has a very rudimentary
 # shell.
 #
@@ -14,6 +15,7 @@ base=/system
 export CLASSPATH=$base/framework/pm.jar
 exec app_process $base/bin com.android.commands.pm.Pm "$@"
 ```
+
 下面我们就从这个脚本展开
 #####脚本本身
 这个脚本前面两行主要是设置执行环境变量，也就是虚拟机环境，和各个`OS`的`PATH`是一个意思。这个脚本的重点在第三句`exec app_process $base/bin com.android.commands.pm.Pm "$@"`也就是执行`app_process`并且将后面的一串作为参数传入。其中`“$@”`是执行shell脚本时传入的参数。而`app_process`是一个可执行文件，位于`/system/bin`目录下。
@@ -95,6 +97,7 @@ int main(int argc, char* const argv[])
 ```
 #####AndroidRuntime
 从上面的代码来看，这里主要是初始化`AppRuntime`。然后启动`com.android.internal.os.RuntimeInit`虚拟机进程，其实就是Android进程的孵化器，当然称作初始化Android运行时更恰当。启动的代码如下。
+
 ```cpp
 void AndroidRuntime::start(const char* className, const char* options)
 {
@@ -143,6 +146,7 @@ void AndroidRuntime::start(const char* className, const char* options)
    //....
 }
 ```
+
 在这里必须要理一下`AppRuntime`和`AndroidRuntime`的关系。`uml`类图关系如下
 ![AppRuntime和AndroidRuntime关系](../../images/androidruntime/AndroidRuntime.png "Title")
 从图看以看出AppRuntime继承了AndroidRuntime。并且实现了AndroidRuntime的一些方法，当然在这里主要需要关注下那几个回调函数，也就是`on`开头的函数，也就是`onVmCreated` `onStarted` `onZygoteInit` `onExit`特别是`onStarted`是纯虚函数。其他几个都是空实现。上面说到了启动了RuntimeInit进程。那这个进程在干什么呢？
@@ -150,6 +154,7 @@ void AndroidRuntime::start(const char* className, const char* options)
 这里还是先梳理下这个类结构
 ![RuntimeInit](../../images/androidruntime/RuntimeInit.png "Title")
 其中有三个本地方法就是`nativeZygoteInit` `nativeFinishInit` `ativeSetExitWithoutCleanup`。通过前面的介绍其实前两个函数在这个启动流程中意义是一样的，只是在不同分支或是根据启动的进程不一样来执行不一样的函数。这几个函数注册在上面介绍过的`startReg`函数中完成，对应的回调函数是`register_com_android_internal_os_RuntimeInit`。
+
 ```cpp
 static JNINativeMethod gMethods[] = {
     { "nativeFinishInit", "()V",
@@ -166,6 +171,7 @@ int register_com_android_internal_os_RuntimeInit(JNIEnv* env)
         gMethods, NELEM(gMethods));
 }
 ```
+
 那RuntimeInit的main函数在做什么呢,这个在`RuntimeInit.java`件中。
 
 ```java
