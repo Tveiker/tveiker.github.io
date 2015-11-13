@@ -188,12 +188,14 @@ public static final void main(String[] argv) {
 }
 ```
 这里就做一件事，通用初始化`commonInit`，我暂时还不知道这在干么，如果有知道的可以告诉我。然后执行`nativeFinishInit`。这个根据上面的注册可知其实调用`AndroidRuntime`的`com_android_internal_os_RuntimeInit_nativeFinishInit`方法。这个方法调用`AndroidRuntime` 的 `onSatrted`方法，也就是调回runtime实例。然后回`AppRuntime`的`onstarted`，这个gCurRuntime是在构造`runtime`是创建的，其实就是保存的一个`runtime`的指针
+
 ```cpp
 static void com_android_internal_os_RuntimeInit_nativeFinishInit(JNIEnv* env, jobject clazz)
 {
     gCurRuntime->onStarted();
 }
 ```
+
 那么在`onStarted`中在做什么呢,这是个回调函数
 
 ```cpp
