@@ -209,5 +209,5 @@ static void com_android_internal_os_RuntimeInit_nativeFinishInit(JNIEnv* env, jo
         IPCThreadState::self()->stopProcess();
  }
 ```
-这里的`mClassName`是在`app_main`解析参数的时候保存的。也就是这个实例中的`android.commands.pm.Pm`，`mClass`就是注册虚拟机后的实例，在`onVmCreated`中绑定。通过`callMain`从而调用`pm`，这些参数随之传入`Pm`的`main`函数，从而启动了`pm list package`功能。`pm`的代码实现在`Pm.java`中。在这里运行时启动分析完成了。至于`pm`如何实现的请自行学习。虾米那来一张总体调用时序图
+这里的`mClassName`是在`app_main`解析参数的时候保存的。也就是这个实例中的`android.commands.pm.Pm`，`mClass`就是注册虚拟机后的实例，在`onVmCreated`中绑定。通过`callMain`从而调用`pm`，这些参数随之传入`Pm`的`main`函数，从而启动了`pm list package`功能。`pm`的代码实现在`Pm.java`中。在这里运行时启动分析完成了。至于`pm`如何实现的请自行学习。下面来来一张总体调用时序图
 ![Invoke_squence](../../images/androidruntime/invoke_sq.png "Title")
